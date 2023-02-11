@@ -18,6 +18,7 @@ import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -72,9 +73,19 @@ public class Usuario {
 		
 	}
         
+         @JsonIgnore
+	 @OneToMany(mappedBy="usuarios")
+	 private List<Automovil> automovil;
+        
    
+         @JsonIgnore
+	 @OneToMany(mappedBy="usuarios")
+	 private List<Persona> persona;
         
-        
-        
+        @JsonIgnore
+	 @ManyToOne
+	 @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
+	 private Persona personas;
 
+        
 }

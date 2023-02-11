@@ -51,13 +51,21 @@ public class Persona implements Serializable {
 	private int edad;
 	@Column(name="usuario", nullable=false, length = 10, unique=true)
 	private String usuario;
-	@Column(name="contraseña", nullable=false, length = 15, unique=false)
-	private String contraseña;
+	@Column(name="contrasenia", nullable=false, length = 15, unique=false)
+	private String contrasenia;
 	@Column(name="ciudad", nullable=false, length = 20, unique=false)
 	private String ciudad;
 	@Column(name="genero", nullable=false, length = 20, unique=false)
 	private String genero;
+        
+        @JsonIgnore
+	 @ManyToOne
+	 @JoinColumn(name = "id", referencedColumnName = "id")
+	 private Usuario usuarios;
 	
+        @JsonIgnore
+	 @OneToMany(mappedBy="personas")
+	 private List<Usuario> usuarioss;
         
  
         

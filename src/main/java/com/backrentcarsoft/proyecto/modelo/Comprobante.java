@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class Comprobante implements Serializable {
 	@Column(name="precio", nullable=false, unique=false)
 	 private Double precio;
         
+        @JsonIgnore
+	@OneToOne(mappedBy="comprobante")
+	private Alquiler alquiler;
          
 
 }

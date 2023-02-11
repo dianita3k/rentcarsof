@@ -47,8 +47,5 @@ public class Reserva implements Serializable {
 	 private Automovil automovil;
 	 
 	//seguro-reserva
-	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name = "cod_seguro", referencedColumnName = "cod_seguro")
-	private Seguro seguro;
+	
 }

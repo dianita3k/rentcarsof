@@ -1,5 +1,6 @@
 package com.backrentcarsoft.proyecto.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -42,6 +44,12 @@ public class Alquiler  implements Serializable  {
 	 private String descripcion_alquiler;
      @Column(name="precio_total", nullable=false, unique=false)
 	 private Double precio_total;
+     
+      @JsonIgnore
+        @OneToOne
+	@JoinColumn(name = "cod_comp", referencedColumnName = "cod_comp")
+	private Comprobante comprobante;
+     
 	 
   
 }

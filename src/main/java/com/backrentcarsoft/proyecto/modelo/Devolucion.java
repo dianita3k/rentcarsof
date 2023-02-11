@@ -47,4 +47,12 @@ public class Devolucion  implements Serializable{
 	 @ManyToOne
 	 @JoinColumn(name = "cod_rgd", referencedColumnName = "cod_rgd")
 	 private RegistrarDanio registrarDanio;
+          
+          
+            @JsonIgnore
+	 @ManyToOne
+	 @JoinColumn(name = "id_alquiler", referencedColumnName = "id_alquiler")
+	 private Alquiler alquiler;
+          
+          
 }
