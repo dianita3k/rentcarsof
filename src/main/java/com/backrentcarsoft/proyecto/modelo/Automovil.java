@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -51,9 +52,25 @@ public class Automovil  implements Serializable {
 	 @OneToMany(mappedBy="automovil")
 	 private List<Reserva> reserva;
          
-        @JsonIgnore
-        @ManyToOne
+       @JsonIgnore
+       @ManyToOne
 	@JoinColumn(name = "id_clase", referencedColumnName = "id_clase")
 	private ClaseAutomovil claseAutomovil;
+
+       @JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "cod_seguro", referencedColumnName = "cod_seguro")
+	private Seguro seguro;
+       
+       @JsonIgnore
+        @OneToOne
+	@JoinColumn(name = "id_clase", referencedColumnName = "id_clase")
+	private ClaseAutomovil claseautomovil;
+       
+       @JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "id", referencedColumnName = "id")
+	private Usuario usuarios;
+
 }
 

@@ -33,6 +33,6 @@ public class Seguro  implements Serializable{
 	//Reserva-seguro
 	@JsonIgnore
 	@OneToOne(mappedBy="seguro")
-	private Reserva reserva;
+	private Automovil automovil;
 }
 

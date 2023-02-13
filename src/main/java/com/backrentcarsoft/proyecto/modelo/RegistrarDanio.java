@@ -40,7 +40,7 @@ public class RegistrarDanio  implements Serializable{
 	 @JoinColumn(name = "num_placa", referencedColumnName = "num_placa")
 	 private Automovil automovil;
         
-          @JsonIgnore
+         @JsonIgnore
 	 @OneToMany(mappedBy="registrarDanio")
 	 private List<Devolucion> devolucion;
          

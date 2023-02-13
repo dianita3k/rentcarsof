@@ -23,9 +23,7 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Persona implements Serializable {
-	
-	
-	
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -38,9 +36,9 @@ public class Persona implements Serializable {
 	private String nombre;
 	@Column(name="apellido", nullable=false, length = 45, unique=false)
 	private String apellido ;
-        @Column(name="cedula", nullable=false, length = 10, unique=false)
+    @Column(name="cedula", nullable=false, length = 10, unique=false)
 	private String cedula ;
-        @Column(name="direccion", nullable=false, length = 100, unique=false)
+    @Column(name="direccion", nullable=false, length = 100, unique=false)
 	private String direccion ;
 	
 	@Column(name="telefono", nullable=false, length = 10, unique=false)
@@ -51,15 +49,22 @@ public class Persona implements Serializable {
 	private int edad;
 	@Column(name="usuario", nullable=false, length = 10, unique=true)
 	private String usuario;
-	@Column(name="contraseña", nullable=false, length = 15, unique=false)
-	private String contraseña;
+	@Column(name="contrasenia", nullable=false, length = 15, unique=false)
+	private String contrasenia;
 	@Column(name="ciudad", nullable=false, length = 20, unique=false)
 	private String ciudad;
 	@Column(name="genero", nullable=false, length = 20, unique=false)
 	private String genero;
+        
+    @JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "id", referencedColumnName = "id")
+	private Usuario usuarios;
 	
-        @JsonIgnore
+    @JsonIgnore
 	@OneToMany(mappedBy="persona")
 	private List<Usuario> usuarios;
-	
+	@OneToMany(mappedBy="personas")
+	private List<Usuario> usuarioss;
+        
 }

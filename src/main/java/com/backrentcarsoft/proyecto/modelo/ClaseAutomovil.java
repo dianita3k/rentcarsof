@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,10 +24,14 @@ import lombok.Setter;
  * @author LENOVO
  */
 @Entity
-@Table(name="claseAutomovil")
+@Table(name="claseautomovil")
 @Getter
 @Setter
+
 public class ClaseAutomovil implements Serializable {
+
+public class ClaseAutomovil implements Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_clase",length = 8)
@@ -40,5 +45,13 @@ public class ClaseAutomovil implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy="claseAutomovil")
     private List<Automovil> automovil;
+
+    @Column(name="precio_alquiler_dia", nullable=false, unique=false)
+	private double precio_alquiler_dia;
+         
+       
+    @JsonIgnore
+	@OneToOne(mappedBy="claseautomovil")
+	private Automovil automovil;
     
 }

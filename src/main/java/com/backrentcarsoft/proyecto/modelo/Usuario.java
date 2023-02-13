@@ -67,7 +67,10 @@ public class Usuario {
 		
 	}
         
-   
+        @JsonIgnore
+	@OneToMany(mappedBy="usuarios")
+	private List<Automovil> automovil;
+
         @JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
@@ -81,6 +84,14 @@ public class Usuario {
         @JsonIgnore
 	@OneToMany(mappedBy="usuarios")
 	private List<Alquiler> alquiler;
- 
 
+        @JsonIgnore
+	@OneToMany(mappedBy="usuarios")
+	private List<Persona> persona;
+        
+        @JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
+	 private Persona personas;
+       
 }
