@@ -30,8 +30,6 @@ import lombok.Setter;
 
 public class ClaseAutomovil implements Serializable {
 
-public class ClaseAutomovil implements Serializable{
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_clase",length = 8)
@@ -46,12 +44,5 @@ public class ClaseAutomovil implements Serializable{
     @OneToMany(mappedBy="claseAutomovil")
     private List<Automovil> automovil;
 
-    @Column(name="precio_alquiler_dia", nullable=false, unique=false)
-	private double precio_alquiler_dia;
-         
-       
-    @JsonIgnore
-	@OneToOne(mappedBy="claseautomovil")
-	private Automovil automovil;
     
 }

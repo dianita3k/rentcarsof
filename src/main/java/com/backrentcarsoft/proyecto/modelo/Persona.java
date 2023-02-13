@@ -63,8 +63,6 @@ public class Persona implements Serializable {
 	
     @JsonIgnore
 	@OneToMany(mappedBy="persona")
-	private List<Usuario> usuarios;
-	@OneToMany(mappedBy="personas")
-	private List<Usuario> usuarioss;
+	private List<Usuario> listausuarios;
         
 }

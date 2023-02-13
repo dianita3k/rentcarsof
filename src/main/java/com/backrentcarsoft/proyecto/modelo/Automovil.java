@@ -52,10 +52,7 @@ public class Automovil  implements Serializable {
 	 @OneToMany(mappedBy="automovil")
 	 private List<Reserva> reserva;
          
-       @JsonIgnore
-       @ManyToOne
-	@JoinColumn(name = "id_clase", referencedColumnName = "id_clase")
-	private ClaseAutomovil claseAutomovil;
+     
 
        @JsonIgnore
 	@OneToOne
@@ -65,7 +62,7 @@ public class Automovil  implements Serializable {
        @JsonIgnore
         @OneToOne
 	@JoinColumn(name = "id_clase", referencedColumnName = "id_clase")
-	private ClaseAutomovil claseautomovil;
+	private ClaseAutomovil claseAutomovil;
        
        @JsonIgnore
 	@ManyToOne

@@ -87,11 +87,7 @@ public class Usuario {
 
         @JsonIgnore
 	@OneToMany(mappedBy="usuarios")
-	private List<Persona> persona;
+	private List<Persona> personas;
         
-        @JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
-	 private Persona personas;
        
 }

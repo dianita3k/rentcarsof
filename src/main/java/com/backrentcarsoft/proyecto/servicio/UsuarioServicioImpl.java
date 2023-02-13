@@ -46,7 +46,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		if(usuario == null) {
 			throw new UsernameNotFoundException("Usuario o password inválidos");
 		}
-		return new User(usuario.getUser(),usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
+		//return new User(usuario.getUser(),usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
+                return new User(usuario.getUser(),usuario.getPassword(), mapearAutoridadesRoles((Collection<Rol>) usuario.getRol()));
 	}
 
 	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles){
