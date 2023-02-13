@@ -8,6 +8,6 @@ import com.backrentcarsoft.proyecto.modelo.Usuario;
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long>{
 
-	public Usuario findByEmail(String email);
+	public Usuario findByUser(String user);
 	
 }

@@ -58,8 +58,8 @@ public class Persona implements Serializable {
 	@Column(name="genero", nullable=false, length = 20, unique=false)
 	private String genero;
 	
-        
- 
-        
+        @JsonIgnore
+	@OneToMany(mappedBy="persona")
+	private List<Usuario> usuarios;
 	
 }

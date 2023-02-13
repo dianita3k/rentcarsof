@@ -27,16 +27,13 @@ public class Reserva implements Serializable {
 	
 	@Id
 	@Column(name="cod_resv", nullable=false, length = 8, unique=false)
-	
         private Long cod_reserva;
-	
         @Column(name="horareservarealizad", nullable=false, length = 45, unique=false)
-	 private Date horareservarealizad;
-
-	 private Date fecha_iniresv;
-	 private Date fecha_finresv;
-	 @Column(name="forma_pago", nullable=false, length = 20, unique=false)
-	 private String forma_pago;
+	private Date horareservarealizad;
+	private Date fecha_iniresv;
+	private Date fecha_finresv;
+	@Column(name="forma_pago", nullable=false, length = 20, unique=false)
+	private String forma_pago;
 	 
 	
 	 //
@@ -51,4 +48,8 @@ public class Reserva implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "cod_seguro", referencedColumnName = "cod_seguro")
 	private Seguro seguro;
+        
+        @JsonIgnore
+	@OneToOne(mappedBy="reserva")
+	private Alquiler alquileres;
 }

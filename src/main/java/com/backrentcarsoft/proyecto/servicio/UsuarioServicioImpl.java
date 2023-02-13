@@ -35,19 +35,18 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Override
 	public Usuario guardar(UsuarioRegistroDTO registroDTO) {
-		Usuario usuario = new Usuario(registroDTO.getNombre(), 
-				registroDTO.getEmail(),
+		Usuario usuario = new Usuario(registroDTO.getNombre(),
 				passwordEncoder.encode(registroDTO.getPassword()),Arrays.asList(new Rol("ROLE_USER")));
 		return usuarioRepositorio.save(usuario);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario = usuarioRepositorio.findByEmail(username);
+		Usuario usuario = usuarioRepositorio.findByUser(username);
 		if(usuario == null) {
 			throw new UsernameNotFoundException("Usuario o password inválidos");
 		}
-		return new User(usuario.getEmail(),usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
+		return new User(usuario.getUser(),usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
 	}
 
 	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles){
@@ -58,4 +57,5 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public List<Usuario> listarUsuarios() {
 		return usuarioRepositorio.findAll();
 	}
+        
 }

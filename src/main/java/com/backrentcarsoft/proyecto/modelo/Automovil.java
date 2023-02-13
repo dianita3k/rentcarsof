@@ -51,6 +51,9 @@ public class Automovil  implements Serializable {
 	 @OneToMany(mappedBy="automovil")
 	 private List<Reserva> reserva;
          
-       
+        @JsonIgnore
+        @ManyToOne
+	@JoinColumn(name = "id_clase", referencedColumnName = "id_clase")
+	private ClaseAutomovil claseAutomovil;
 }
 

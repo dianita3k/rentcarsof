@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -22,9 +24,9 @@ public class Rol {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", nullable=false, length = 8)
-        
         private Long id;
-         @Column(name="nombre", nullable=false, length = 20, unique=false)
+        
+        @Column(name="nombre", nullable=false, length = 20, unique=false)
 	private String nombre;
        
 	
@@ -42,8 +44,9 @@ public class Rol {
 		super();
 		this.nombre = nombre;
 	}
-        
-       
-
+              
+        @JsonIgnore
+	@OneToMany(mappedBy="rol")
+	private List<Usuario> usuarios;
 	
 }

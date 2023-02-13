@@ -5,11 +5,15 @@
  */
 package com.backrentcarsoft.proyecto.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,16 +26,19 @@ import lombok.Setter;
 @Table(name="claseAutomovil")
 @Getter
 @Setter
-public class ClaseAutomovil {
+public class ClaseAutomovil implements Serializable {
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_clase",length = 8)
     private Long id_clase;
-         @Column(name="nombre_clase", nullable=false, length = 50, unique=false)
-	private String nombre_clase;
+    @Column(name="nombre_clase", nullable=false, length = 50, unique=false)
+    private String nombre_clase;
         
-        @Column(name="precio_alquiler_dia", nullable=false, unique=false)
-	private double precio_alquiler_dia;
-         
+    @Column(name="precio_alquiler_dia", nullable=false, unique=false)
+    private double precio_alquiler_dia;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="claseAutomovil")
+    private List<Automovil> automovil;
     
 }
