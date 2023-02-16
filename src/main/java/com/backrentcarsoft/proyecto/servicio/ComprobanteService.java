@@ -5,13 +5,13 @@
  */
 package com.backrentcarsoft.proyecto.servicio;
 
-import com.backrentcarsoft.proyecto.modelo.Alquiler;
-import com.backrentcarsoft.proyecto.modelo.Automovil;
+import com.backrentcarsoft.proyecto.modelo.Comprobante;
 
 /**
  *
  * @author LENOVO
  */
-public interface AutomovilService extends GenericService< Automovil, String>{
+public interface ComprobanteService extends GenericService<Comprobante, Long> {
     
 }
+

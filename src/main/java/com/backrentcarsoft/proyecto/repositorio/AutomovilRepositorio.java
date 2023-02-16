@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author LENOVO
  */
-public interface AutomovilRepositorio   extends JpaRepository<Automovil, Long> {
+public interface AutomovilRepositorio   extends JpaRepository<Automovil, String> {
     public Automovil findByAuto(String automovil);
 }
