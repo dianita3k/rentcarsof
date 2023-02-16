@@ -5,8 +5,8 @@
  */
 package com.backrentcarsoft.proyecto.controlador;
 
-import com.backrentcarsoft.proyecto.modelo.Alquiler;
-import com.backrentcarsoft.proyecto.servicio.AlquilerServicio;
+import com.backrentcarsoft.proyecto.modelo.Persona;
+import com.backrentcarsoft.proyecto.servicio.PersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,15 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api")
-public class AlquilerControlador {
-    
-     @Autowired
-    private AlquilerServicio alquiserv;
+public class PersonaController {
+  @Autowired
+    private PersonaService per;
 
     @GetMapping("/do/listar")
-    public ResponseEntity<List<Alquiler>> getAll() {
+    public ResponseEntity<List<Persona>> getAll() {
         try {
-            return new ResponseEntity<>(alquiserv.findByAll(), HttpStatus.OK);
+            return new ResponseEntity<>(per.findByAll(), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -45,18 +44,18 @@ public class AlquilerControlador {
     }
 
     @GetMapping("/do/search/{id}")
-    public ResponseEntity<Alquiler> getById(@PathVariable("id") Long id){
+    public ResponseEntity<Persona> getById(@PathVariable("id") Long id){
         try {
-            return  new ResponseEntity<>(alquiserv.findById(id), HttpStatus.OK);
+            return  new ResponseEntity<>(per.findById(id), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/do/crear")
-    public ResponseEntity<Alquiler> createReproducion(@RequestBody Alquiler cancion){
+    public ResponseEntity<Persona> createReproducion(@RequestBody Persona persona){
         try {
-            return new ResponseEntity<>(alquiserv.save(cancion), HttpStatus.CREATED);
+            return new ResponseEntity<>(per.save(persona), HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -66,12 +65,41 @@ public class AlquilerControlador {
     @DeleteMapping("/do/delete/{id}")
     public ResponseEntity<?> deletesong(@PathVariable("id") Long id) {
         try {
-            alquiserv.delete(id);
+            per.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (DataIntegrityViolationException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al elminar al docente");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al elminar al persona");
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PutMapping("/do/update/{id}")
+    public ResponseEntity<Persona> updateClient(@RequestBody Persona prs, @PathVariable("id") Long id){
+        Persona pe =per.findById(id);
+
+        if(pe == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            try {
+                pe.setNombre(prs.getNombre());
+                pe.setApellido(prs.getApellido());
+                pe.setCedula(prs.getCedula());
+                pe.setDireccion(prs.getDireccion());
+                pe.setTelefono(prs.getTelefono());
+                pe.setCorreo(prs.getCorreo());
+                pe.setEdad(prs.getEdad());
+                pe.setUsuario(prs.getUsuario());
+                pe.setContrasenia(prs.getContrasenia());
+                pe.setCiudad(prs.getCiudad());
+                pe.setGenero(prs.getGenero());
+                
+
+                return new ResponseEntity<>(per.save(prs), HttpStatus.CREATED);
+            }catch (Exception e){
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
     }
 }

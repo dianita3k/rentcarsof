@@ -5,8 +5,8 @@
  */
 package com.backrentcarsoft.proyecto.controlador;
 
-import com.backrentcarsoft.proyecto.modelo.Alquiler;
-import com.backrentcarsoft.proyecto.servicio.AlquilerServicio;
+import com.backrentcarsoft.proyecto.modelo.Comprobante;
+import com.backrentcarsoft.proyecto.servicio.ComprobanteService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -29,15 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api")
-public class AlquilerControlador {
-    
-     @Autowired
-    private AlquilerServicio alquiserv;
+public class ComprobanteController {
+  @Autowired
+    private ComprobanteService compserv;
 
     @GetMapping("/do/listar")
-    public ResponseEntity<List<Alquiler>> getAll() {
+    public ResponseEntity<List<Comprobante>> getAll() {
         try {
-            return new ResponseEntity<>(alquiserv.findByAll(), HttpStatus.OK);
+            return new ResponseEntity<>(compserv.findByAll(), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -45,18 +44,18 @@ public class AlquilerControlador {
     }
 
     @GetMapping("/do/search/{id}")
-    public ResponseEntity<Alquiler> getById(@PathVariable("id") Long id){
+    public ResponseEntity<Comprobante> getById(@PathVariable("id") Long id){
         try {
-            return  new ResponseEntity<>(alquiserv.findById(id), HttpStatus.OK);
+            return  new ResponseEntity<>(compserv.findById(id), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/do/crear")
-    public ResponseEntity<Alquiler> createReproducion(@RequestBody Alquiler cancion){
+    public ResponseEntity<Comprobante> createReproducion(@RequestBody Comprobante comp){
         try {
-            return new ResponseEntity<>(alquiserv.save(cancion), HttpStatus.CREATED);
+            return new ResponseEntity<>(compserv.save(comp), HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -66,12 +65,31 @@ public class AlquilerControlador {
     @DeleteMapping("/do/delete/{id}")
     public ResponseEntity<?> deletesong(@PathVariable("id") Long id) {
         try {
-            alquiserv.delete(id);
+            compserv.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (DataIntegrityViolationException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al elminar al docente");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al elminar el comprobante");
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PutMapping("/do/update/{id}")
+    public ResponseEntity<Comprobante> updateClient(@RequestBody Comprobante compro, @PathVariable("id") Long id){
+        Comprobante co =compserv.findById(id);
+
+        if(co == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            try {
+                co.setDescripcion(compro.getDescripcion());
+                co.setPrecio(compro.getPrecio());
+
+                return new ResponseEntity<>(compserv.save(compro), HttpStatus.CREATED);
+            }catch (Exception e){
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
     }
 }
